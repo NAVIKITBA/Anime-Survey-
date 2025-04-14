@@ -1,3 +1,351 @@
-<hello>
-  
-</hello>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGT and BIG5 Personality Survey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="survey-container">
+        <!-- Section 1: Information -->
+        <div class="form-section" id="section-1">
+            <h2>Personal Information</h2>
+            <label for="pseudonym">Pseudonym:</label>
+            <input type="text" id="pseudonym" name="pseudonym" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="watch-frequency">Watch Frequency:</label>
+            <select id="watch-frequency" name="watch-frequency" required>
+                <option value="Rare">Rare</option>
+                <option value="Occasional">Occasional</option>
+                <option value="Frequent">Frequent</option>
+                <option value="Daily">Daily</option>
+            </select>
+
+            <label for="year-level">Year Level:</label>
+            <select id="year-level" name="year-level" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+
+            <label for="ugt-questions">UGT Questions:</label>
+            <div id="ugt-questions">
+                <p>1. How often do you watch anime?</p>
+                <select name="ugt-q1">
+                    <option value="1">Never</option>
+                    <option value="2">Rarely</option>
+                    <option value="3">Sometimes</option>
+                    <option value="4">Often</option>
+                    <option value="5">Always</option>
+                </select>
+
+                <p>2. How much do you enjoy watching anime?</p>
+                <select name="ugt-q2">
+                    <option value="1">Not at all</option>
+                    <option value="2">Slightly</option>
+                    <option value="3">Moderately</option>
+                    <option value="4">Very much</option>
+                    <option value="5">Extremely</option>
+                </select>
+            </div>
+
+            <button id="to-section-2">Next</button>
+        </div>
+
+        <!-- Section 2: Genre Selection -->
+        <div class="form-section" id="section-2" style="display: none;">
+            <h2>Genre Selection</h2>
+            <p>Select up to 3 anime genres:</p>
+            <label><input type="checkbox" name="genre" value="Action"> Action</label>
+            <label><input type="checkbox" name="genre" value="Adventure"> Adventure</label>
+            <label><input type="checkbox" name="genre" value="Comedy"> Comedy</label>
+            <label><input type="checkbox" name="genre" value="Drama"> Drama</label>
+            <label><input type="checkbox" name="genre" value="Fantasy"> Fantasy</label>
+            <label><input type="checkbox" name="genre" value="Horror"> Horror</label>
+            <label><input type="checkbox" name="genre" value="Romance"> Romance</label>
+            <label><input type="checkbox" name="genre" value="SciFi"> Sci-Fi</label>
+
+            <button id="to-section-3">Next</button>
+        </div>
+
+        <!-- Section 3: Questions -->
+        <div class="form-section" id="section-3" style="display: none;">
+            <h2>Genre-Specific Questions</h2>
+            <form id="genre-questions">
+                <div id="Action-Genre" style="display: none;">
+                    <h3>Action Genre</h3>
+
+                    <!-- OPENSNESS to Experience -->
+                    <fieldset class="trait-section" id="action-openness">
+                        <legend>Openness to Experience</legend>
+                        <!-- Question 1 -->
+                        <div class="question">
+                            <label for="action-openness-1">1. I enjoy action anime that introduce innovative fight techniques.</label>
+                            <div>
+                                <label><input type="radio" name="action-openness-1" value="1"> 1</label>
+                                <label><input type="radio" name="action-openness-1" value="2"> 2</label>
+                                <label><input type="radio" name="action-openness-1" value="3"> 3</label>
+                                <label><input type="radio" name="action-openness-1" value="4"> 4</label>
+                                <label><input type="radio" name="action-openness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                        <!-- Repeat similar blocks for questions 2 to 10 for Openness -->
+                    </fieldset>
+
+                    <!-- CONSCIENTIOUSNESS -->
+                    <fieldset class="trait-section" id="action-conscientiousness">
+                        <legend>Conscientiousness</legend>
+                        <!-- Question 1 -->
+                        <div class="question">
+                            <label for="action-conscientiousness-1">1. I appreciate action anime where battles are methodically planned.</label>
+                            <div>
+                                <label><input type="radio" name="action-conscientiousness-1" value="1"> 1</label>
+                                <label><input type="radio" name="action-conscientiousness-1" value="2"> 2</label>
+                                <label><input type="radio" name="action-conscientiousness-1" value="3"> 3</label>
+                                <label><input type="radio" name="action-conscientiousness-1" value="4"> 4</label>
+                                <label><input type="radio" name="action-conscientiousness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                        <!-- Repeat similar blocks for questions 2 to 10 for Conscientiousness -->
+                    </fieldset>
+
+                    <!-- EXTRAVERSION -->
+                    <fieldset class="trait-section" id="action-extraversion">
+                        <legend>Extraversion</legend>
+                        <!-- Question 1 -->
+                        <div class="question">
+                            <label for="action-extraversion-1">1. I get energized by explosive and fast-paced fight scenes.</label>
+                            <div>
+                                <label><input type="radio" name="action-extraversion-1" value="1"> 1</label>
+                                <label><input type="radio" name="action-extraversion-1" value="2"> 2</label>
+                                <label><input type="radio" name="action-extraversion-1" value="3"> 3</label>
+                                <label><input type="radio" name="action-extraversion-1" value="4"> 4</label>
+                                <label><input type="radio" name="action-extraversion-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                        <!-- Repeat similar blocks for questions 2 to 10 for Extraversion -->
+                    </fieldset>
+
+                    <!-- AGREEABLENESS -->
+                    <fieldset class="trait-section" id="action-agreeableness">
+                        <legend>Agreeableness</legend>
+                        <!-- Question 1 -->
+                        <div class="question">
+                            <label for="action-agreeableness-1">1. I value action anime that emphasize teamwork and camaraderie.</label>
+                            <div>
+                                <label><input type="radio" name="action-agreeableness-1" value="1"> 1</label>
+                                <label><input type="radio" name="action-agreeableness-1" value="2"> 2</label>
+                                <label><input type="radio" name="action-agreeableness-1" value="3"> 3</label>
+                                <label><input type="radio" name="action-agreeableness-1" value="4"> 4</label>
+                                <label><input type="radio" name="action-agreeableness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                        <!-- Repeat similar blocks for questions 2 to 10 for Agreeableness -->
+                    </fieldset>
+
+                    <!-- NEUROTICISM -->
+                    <fieldset class="trait-section" id="action-neuroticism">
+                        <legend>Neuroticism</legend>
+                        <!-- Question 1 -->
+                        <div class="question">
+                            <label for="action-neuroticism-1">1. I often feel tense during high-stakes battles in action anime.</label>
+                            <div>
+                                <label><input type="radio" name="action-neuroticism-1" value="1"> 1</label>
+                                <label><input type="radio" name="action-neuroticism-1" value="2"> 2</label>
+                                <label><input type="radio" name="action-neuroticism-1" value="3"> 3</label>
+                                <label><input type="radio" name="action-neuroticism-1" value="4"> 4</label>
+                                <label><input type="radio" name="action-neuroticism-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                        <!-- Repeat similar blocks for questions 2 to 10 for Neuroticism -->
+                    </fieldset>
+
+                    <!-- Optional Free-Response -->
+                    <p>Why do you like the Action genre?</p>
+                    <textarea name="action-reason" rows="3"></textarea>
+                </div>
+
+                <!-- Adventure Genre Section -->
+                <div id="Adventure-Genre" style="display: none;">
+                    <h3>Adventure Genre</h3>
+                    <!-- Similar structure as Action Genre -->
+                    <fieldset class="trait-section" id="adventure-openness">
+                        <legend>Openness to Experience</legend>
+                        <div class="question">
+                            <label for="adventure-openness-1">1. I enjoy adventure anime with unique and imaginative worlds.</label>
+                            <div>
+                                <label><input type="radio" name="adventure-openness-1" value="1"> 1</label>
+                                <label><input type="radio" name="adventure-openness-1" value="2"> 2</label>
+                                <label><input type="radio" name="adventure-openness-1" value="3"> 3</label>
+                                <label><input type="radio" name="adventure-openness-1" value="4"> 4</label>
+                                <label><input type="radio" name="adventure-openness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Repeat similar blocks for other traits -->
+                    <p>Why do you like the Adventure genre?</p>
+                    <textarea name="adventure-reason" rows="3"></textarea>
+                </div>
+
+                <!-- Comedy Genre Section -->
+                <div id="Comedy-Genre" style="display: none;">
+                    <h3>Comedy Genre</h3>
+                    <!-- Similar structure as Action Genre -->
+                    <fieldset class="trait-section" id="comedy-openness">
+                        <legend>Openness to Experience</legend>
+                        <div class="question">
+                            <label for="comedy-openness-1">1. I enjoy comedy anime with clever and original humor.</label>
+                            <div>
+                                <label><input type="radio" name="comedy-openness-1" value="1"> 1</label>
+                                <label><input type="radio" name="comedy-openness-1" value="2"> 2</label>
+                                <label><input type="radio" name="comedy-openness-1" value="3"> 3</label>
+                                <label><input type="radio" name="comedy-openness-1" value="4"> 4</label>
+                                <label><input type="radio" name="comedy-openness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Repeat similar blocks for other traits -->
+                    <p>Why do you like the Comedy genre?</p>
+                    <textarea name="comedy-reason" rows="3"></textarea>
+                </div>
+
+                <!-- Drama Genre Section -->
+                <div id="Drama-Genre" style="display: none;">
+                    <h3>Drama Genre</h3>
+                    <!-- Similar structure as Action Genre -->
+                    <fieldset class="trait-section" id="drama-openness">
+                        <legend>Openness to Experience</legend>
+                        <div class="question">
+                            <label for="drama-openness-1">1. I enjoy drama anime with deep and thought-provoking storylines.</label>
+                            <div>
+                                <label><input type="radio" name="drama-openness-1" value="1"> 1</label>
+                                <label><input type="radio" name="drama-openness-1" value="2"> 2</label>
+                                <label><input type="radio" name="drama-openness-1" value="3"> 3</label>
+                                <label><input type="radio" name="drama-openness-1" value="4"> 4</label>
+                                <label><input type="radio" name="drama-openness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Repeat similar blocks for other traits -->
+                    <p>Why do you like the Drama genre?</p>
+                    <textarea name="drama-reason" rows="3"></textarea>
+                </div>
+
+                <!-- Fantasy Genre Section -->
+                <div id="Fantasy-Genre" style="display: none;">
+                    <h3>Fantasy Genre</h3>
+                    <!-- Similar structure as Action Genre -->
+                    <fieldset class="trait-section" id="fantasy-openness">
+                        <legend>Openness to Experience</legend>
+                        <div class="question">
+                            <label for="fantasy-openness-1">1. I enjoy fantasy anime with magical and otherworldly elements.</label>
+                            <div>
+                                <label><input type="radio" name="fantasy-openness-1" value="1"> 1</label>
+                                <label><input type="radio" name="fantasy-openness-1" value="2"> 2</label>
+                                <label><input type="radio" name="fantasy-openness-1" value="3"> 3</label>
+                                <label><input type="radio" name="fantasy-openness-1" value="4"> 4</label>
+                                <label><input type="radio" name="fantasy-openness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Repeat similar blocks for other traits -->
+                    <p>Why do you like the Fantasy genre?</p>
+                    <textarea name="fantasy-reason" rows="3"></textarea>
+                </div>
+
+                <!-- Horror Genre Section -->
+                <div id="Horror-Genre" style="display: none;">
+                    <h3>Horror Genre</h3>
+                    <!-- Similar structure as Action Genre -->
+                    <fieldset class="trait-section" id="horror-openness">
+                        <legend>Openness to Experience</legend>
+                        <div class="question">
+                            <label for="horror-openness-1">1. I enjoy horror anime that explore dark and eerie themes.</label>
+                            <div>
+                                <label><input type="radio" name="horror-openness-1" value="1"> 1</label>
+                                <label><input type="radio" name="horror-openness-1" value="2"> 2</label>
+                                <label><input type="radio" name="horror-openness-1" value="3"> 3</label>
+                                <label><input type="radio" name="horror-openness-1" value="4"> 4</label>
+                                <label><input type="radio" name="horror-openness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Repeat similar blocks for other traits -->
+                    <p>Why do you like the Horror genre?</p>
+                    <textarea name="horror-reason" rows="3"></textarea>
+                </div>
+
+                <!-- Romance Genre Section -->
+                <div id="Romance-Genre" style="display: none;">
+                    <h3>Romance Genre</h3>
+                    <!-- Similar structure as Action Genre -->
+                    <fieldset class="trait-section" id="romance-openness">
+                        <legend>Openness to Experience</legend>
+                        <div class="question">
+                            <label for="romance-openness-1">1. I enjoy romance anime with heartfelt and emotional stories.</label>
+                            <div>
+                                <label><input type="radio" name="romance-openness-1" value="1"> 1</label>
+                                <label><input type="radio" name="romance-openness-1" value="2"> 2</label>
+                                <label><input type="radio" name="romance-openness-1" value="3"> 3</label>
+                                <label><input type="radio" name="romance-openness-1" value="4"> 4</label>
+                                <label><input type="radio" name="romance-openness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Repeat similar blocks for other traits -->
+                    <p>Why do you like the Romance genre?</p>
+                    <textarea name="romance-reason" rows="3"></textarea>
+                </div>
+
+                <!-- SciFi Genre Section -->
+                <div id="SciFi-Genre" style="display: none;">
+                    <h3>Sci-Fi Genre</h3>
+                    <!-- Similar structure as Action Genre -->
+                    <fieldset class="trait-section" id="scifi-openness">
+                        <legend>Openness to Experience</legend>
+                        <div class="question">
+                            <label for="scifi-openness-1">1. I enjoy sci-fi anime with futuristic and technological themes.</label>
+                            <div>
+                                <label><input type="radio" name="scifi-openness-1" value="1"> 1</label>
+                                <label><input type="radio" name="scifi-openness-1" value="2"> 2</label>
+                                <label><input type="radio" name="scifi-openness-1" value="3"> 3</label>
+                                <label><input type="radio" name="scifi-openness-1" value="4"> 4</label>
+                                <label><input type="radio" name="scifi-openness-1" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Repeat similar blocks for other traits -->
+                    <p>Why do you like the Sci-Fi genre?</p>
+                    <textarea name="scifi-reason" rows="3"></textarea>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- Thank You Page -->
+        <div class="form-section" id="thank-you" style="display: none;">
+            <h2>Thank You!</h2>
+            <p>Your responses have been submitted.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
