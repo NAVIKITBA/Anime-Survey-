@@ -1,4 +1,55 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Create and display the introductory popup
+    const introPopup = document.createElement("div");
+    introPopup.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        ">
+            <p>Hello, this is the researcher. For the sake of anonymity I will be asking for a pseudonym. This survey will have 2 sections:</p>
+            <p>(1) UGT - why you watch anime and what you get from it;</p>
+            <p>(2) BIG5 - questions will be asked to see whether there's a correlation between the anime genres you watch and your personality type.</p>
+            <p>For the sake of consistency, do make sure to be honest. At the end you will see what your personality type is according to the Big 5 OCEAN: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism (Emotional Instability).</p>
+            <p>This will only take up to 10-15 minutes of your time. Thank you!</p>
+            <button id="close-intro-popup" style="
+                margin-top: 10px;
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            ">Got it!</button>
+        </div>
+    `;
+
+    document.body.appendChild(introPopup);
+
+    // Add fade-in animation
+    const style = document.createElement("style");
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Close popup logic
+    document.getElementById("close-intro-popup").addEventListener("click", () => {
+        introPopup.remove();
+    });
+
     const section1 = document.getElementById("section-1");
     const section2 = document.getElementById("section-2");
     const section3 = document.getElementById("section-3");
@@ -60,6 +111,31 @@ document.addEventListener("DOMContentLoaded", () => {
     genreForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        // Dynamically add 'required' attribute to selected genres only
+        const selectedGenres = Array.from(document.querySelectorAll("input[name='genre']:checked"))
+            .map(genre => genre.value);
+
+        // Remove 'required' from all genre fields initially
+        document.querySelectorAll("#section-3 input, #section-3 textarea").forEach(input => {
+            input.removeAttribute("required");
+        });
+
+        // Add 'required' to fields of selected genres
+        selectedGenres.forEach(genre => {
+            const genreSection = document.getElementById(`${genre}-Genre`);
+            if (genreSection) {
+                genreSection.querySelectorAll("input, textarea").forEach(input => {
+                    input.setAttribute("required", "required");
+                });
+            }
+        });
+
+        // Validate the form
+        if (!genreForm.checkValidity()) {
+            alert("Please complete all required fields for the selected genres.");
+            return;
+        }
+
         // Collect data from Section 1
         const pseudonym = document.getElementById("pseudonym").value;
         const age = document.getElementById("age").value;
@@ -69,15 +145,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const ugtQ1 = document.querySelector("select[name='ugt-q1']").value;
         const ugtQ2 = document.querySelector("select[name='ugt-q2']").value;
 
-        // Collect data from Section 2
-        const selectedGenres = Array.from(document.querySelectorAll("input[name='genre']:checked"))
-            .map(genre => genre.value);
-
         // Collect data from Section 3
         const genreQuestions = {};
+        const genreReasons = {};
         selectedGenres.forEach(genre => {
             const genreInputs = document.querySelectorAll(`#${genre}-Genre input[type='radio']:checked`);
-            genreQuestions[genre] = Array.from(genreInputs).map(input => input.value);
+            genreQuestions[genre] = Array.from(genreInputs).reduce((acc, input) => {
+                const questionKey = input.name;
+                acc[questionKey] = input.value;
+                return acc;
+            }, {});
+
+            // Collect free-response answers
+            const reasonTextarea = document.querySelector(`#${genre}-Genre textarea[name='${genre.toLowerCase()}-reason']`);
+            if (reasonTextarea) {
+                genreReasons[genre] = reasonTextarea.value;
+            }
         });
 
         // Prepare data for API
@@ -89,7 +172,15 @@ document.addEventListener("DOMContentLoaded", () => {
             WatchFrequency: watchFrequency,
             UGT_Questions: JSON.stringify({ ugtQ1, ugtQ2 }),
             SelectedGenres: JSON.stringify(selectedGenres),
-            GenreQuestions: JSON.stringify(genreQuestions)
+            Action_Genre: JSON.stringify(genreQuestions.Action || {}),
+            Adventure_Genre: JSON.stringify(genreQuestions.Adventure || {}),
+            Comedy_Genre: JSON.stringify(genreQuestions.Comedy || {}),
+            Drama_Genre: JSON.stringify(genreQuestions.Drama || {}),
+            Fantasy_Genre: JSON.stringify(genreQuestions.Fantasy || {}),
+            Horror_Genre: JSON.stringify(genreQuestions.Horror || {}),
+            Romance_Genre: JSON.stringify(genreQuestions.Romance || {}),
+            SciFi_Genre: JSON.stringify(genreQuestions.SciFi || {}),
+            Genre_Reasons: JSON.stringify(genreReasons)
         };
 
         try {
@@ -103,11 +194,13 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (response.ok) {
+                console.log("Submission successful. Displaying thank-you page.");
                 section1.style.display = "none";
                 section2.style.display = "none";
                 section3.style.display = "none";
                 thankYou.style.display = "block"; // Only show the thank-you page
             } else {
+                console.error("Submission failed with status:", response.status);
                 alert("Failed to submit the survey. Please try again.");
             }
         } catch (error) {
